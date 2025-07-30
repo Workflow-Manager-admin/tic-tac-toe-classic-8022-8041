@@ -1,104 +1,195 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
+  --primary: #0074D9;
+  --secondary: #2ECC40;
+  --accent: #FF4136;
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --text-primary: #282c34;
   --text-secondary: #61dafb;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --button-bg: var(--primary);
+  --button-text: #fff;
+  --square-hover: #f2f6fc;
+  --square-x: var(--primary);
+  --square-o: var(--secondary);
+  --highlight: var(--accent);
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
   --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --bg-secondary: #222f3e;
+  --text-primary: #fff;
+  --border-color: #444;
+  --button-bg: #0074D9;
+  --button-text: #fff;
+}
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+}
+
+.ttt-main-header {
+  padding: 2rem 0 0.5rem 0;
+  text-align: center;
   position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 0.1em 0;
+  letter-spacing: 0.04em;
+  color: var(--primary);
 }
 
 .theme-toggle {
   position: absolute;
-  top: 20px;
+  top: 28px;
   right: 20px;
   background-color: var(--button-bg);
   color: var(--button-text);
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: background 0.2s, color .2s;
+}
+.theme-toggle:hover,
+.theme-toggle:focus {
+  background-color: var(--secondary);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ttt-main-content {
+  width: 100vw;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 0.5em;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 0.5em 2.5em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.x-score { color: var(--primary);}
+.o-score { color: var(--secondary);}
+
+.ttt-board {
+  display: inline-block;
+  margin: 0 auto;
+  background: var(--bg-secondary);
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 16px rgba(40,44,52,0.04);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ttt-board-row {
+  display: flex;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+.ttt-square {
+  width: 68px;
+  height: 68px;
+  margin: 5px;
+  background: var(--bg-primary);
+  border: 2.5px solid var(--border-color);
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 2.25rem;
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: border .15s, background .17s, color .13s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+.ttt-square:focus,
+.ttt-square:hover {
+  background: var(--square-hover);
+  border-color: var(--secondary);
+}
+.ttt-square.highlight {
+  background: var(--highlight);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ttt-square[aria-label*="X"] { color: var(--square-x);}
+.ttt-square[aria-label*="O"] { color: var(--square-o);}
+
+.ttt-status {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1em 0;
+  color: var(--primary);
+  min-height: 1em;
+}
+
+.ttt-reset-btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.75em 2em;
+  margin-top: 1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  cursor: pointer;
+  transition: background .17s, color .18s;
+}
+.ttt-reset-btn:hover,
+.ttt-reset-btn:focus {
+  background: var(--secondary);
+  color: var(--text-primary);
+}
+
+.ttt-footer {
+  font-size: 0.9em;
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 0.6em;
+}
+.ttt-footer-credit a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+@media (max-width: 740px) {
+  .ttt-board { padding: 0.5rem 0.2rem;}
+  .ttt-square { width: 46px; height: 46px; font-size: 1.45rem;}
+  .ttt-scoreboard { font-size: 1rem; padding: 0.40em 1.1em;}
+  .ttt-title { font-size: 1.45rem;}
+}
+
+@media (max-width: 450px) {
+  .ttt-square { width: 36px; height: 36px;}
+  .ttt-main-header { padding-top: 0.8rem;}
+}
+
